@@ -411,8 +411,8 @@
     background: rgba(0,229,255,0.12);
     transform: translateY(-50%) scale(1.08);
   }
-  #car-prev, #car2-prev { left: 8px; }
-  #car-next, #car2-next { right: 8px; }
+  #car-prev, #car2-prev, #car3-prev { left: 8px; }
+  #car-next, #car2-next, #car3-next { right: 8px; }
 
   .carousel-overflow {
     overflow: hidden; padding: 14px 0 18px;
@@ -441,12 +441,45 @@
     border-color: rgba(0,229,255,0.28);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,229,255,0.07);
   }
-  .car-card video {
+  
+  /* Flexible cards scale to image size (no fixed aspect ratio) */
+  .car-card.flexible {
+    aspect-ratio: unset;
+    height: auto;
+    overflow: visible;
+  }
+  .car-card.flexible .car-media {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 20px 60px rgba(0,0,0,0.5)) drop-shadow(0 0 40px rgba(0,229,255,0.07));
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.3s;
+  }
+  .car-card.flexible:hover {
+    box-shadow: none;
+  }
+  .car-card.flexible:hover .car-media {
+    transform: scale(1.04);
+    filter: drop-shadow(0 24px 70px rgba(0,0,0,0.55)) drop-shadow(0 0 48px rgba(0,229,255,0.1));
+  }
+  .car-card.flexible .car-overlay {
+    position: relative !important;
+    background: none;
+    padding: 0 !important;
+  }
+  .car-card.flexible .car-play {
+    display: none !important;
+  }
+  
+  .car-card video,
+  .car-card img {
     position: absolute; inset: 0;
     width: 100%; height: 100%; object-fit: cover;
     transition: opacity 0.4s, transform 0.6s cubic-bezier(0.4,0,0.2,1);
   }
-  .car-card:hover video { transform: scale(1.04); }
+  .car-card:hover .car-media { transform: scale(1.04); }
   .car-overlay {
     position: absolute; inset: 0; z-index: 2;
     background: linear-gradient(to top, rgba(6,8,18,0.92) 0%, rgba(6,8,18,0.35) 50%, transparent 100%);
@@ -772,8 +805,8 @@
     /* Carousel */
     .car-card { width: 180px; flex: 0 0 180px; }
     .carousel-nav { width: 34px; height: 34px; font-size: 0.85rem; }
-    #car-prev, #car2-prev { left: 4px; }
-    #car-next, #car2-next { right: 4px; }
+    #car-prev, #car2-prev, #car3-prev { left: 4px; }
+    #car-next, #car2-next, #car3-next { right: 4px; }
 
     /* Process */
     #process .process-steps { grid-template-columns: 1fr; }
@@ -1061,7 +1094,28 @@
   </div>
   <div class="container">
     <div class="carousel-dots" id="car2-dots"></div>
-    <p class="carousel-hint">Drag or use arrows &nbsp;·&nbsp; click to watch</p>
+    <p class="carousel-hint">Drag or use arrows &nbsp;·&nbsp; click/hover to watch</p>
+  </div>
+</section>
+
+<section id="works-static">
+  <div class="container">
+    <div class="section-tag reveal">Static Ads</div>
+    <h2 class="section-title reveal reveal-delay-1">Creative Stills for<br><span>Paid Campaigns</span></h2>
+    <p class="section-sub reveal reveal-delay-2">A curated set of static ad creatives built for Meta and TikTok placements.</p>
+  </div>
+  <div class="carousel-outer">
+    <div class="carousel-fade-left"></div>
+    <div class="carousel-fade-right"></div>
+    <button class="carousel-nav" id="car3-prev" aria-label="Previous">&#8592;</button>
+    <button class="carousel-nav" id="car3-next" aria-label="Next">&#8594;</button>
+    <div class="carousel-overflow" id="car3-overflow">
+      <div class="carousel-track" id="car3-track"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="carousel-dots" id="car3-dots"></div>
+    <p class="carousel-hint">Drag or use arrows</p>
   </div>
 </section>
 
@@ -1310,6 +1364,28 @@ const CAROUSEL_CARDS_2 = [
   { eyebrow:'Supplements',     title:'Vexapure v11',videoSrc:'Jason.mp4', poster:'jason poster.png' },
 ];
 
+const CAROUSEL_CARDS_3 = [
+  { eyebrow:'Static Ad', title:'Dish 1 Creative', imageSrc:'Dreamy Bloom/Gemini_Generated_Image_g8jwcog8jwcog8jw.png' },
+  { eyebrow:'Static Ad', title:'Dish 2 Creative', imageSrc:'Dreamy Bloom/pink.png' },
+  { eyebrow:'Static Ad', title:'Dish 3 Creative', imageSrc:'Dreamy Bloom/red.png' },
+  { eyebrow:'Static Ad', title:'Dish 4 Creative', imageSrc:'Dreamy Bloom/voilet.png' },
+  { eyebrow:'Static Ad', title:'Dish 5 Creative', imageSrc:'canva/Bird poster.png' },
+  { eyebrow:'Static Ad', title:'Dish 6 Creative', imageSrc:'canva/BUR BUR BUR.png' },
+  { eyebrow:'Static Ad', title:'Dish 7 Creative', imageSrc:'canva/ferrari.png' },
+  { eyebrow:'Static Ad', title:'Dish 7 Creative', imageSrc:'canva/ferrari red.png' },
+  { eyebrow:'Static Ad', title:'Dish 9 Creative', imageSrc:'canva/mustang.png' },
+  { eyebrow:'Static Ad', title:'Dish 8 Creative', imageSrc:'canva/mbappe.png' },
+  { eyebrow:'Static Ad', title:'Dish 10 Creative', imageSrc:'canva/PINEAPPLE (300 x 420 mm) (200 x 300 mm).png' },
+  // { eyebrow:'Static Ad', title:'Dish 11 Creative', imageSrc:'Dish 11 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 12 Creative', imageSrc:'Dish 12 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 13 Creative', imageSrc:'Dish 13 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 14 Creative', imageSrc:'Dish 14 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 15 Creative', imageSrc:'Dish 15 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 16 Creative', imageSrc:'Dish 16 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 17 Creative', imageSrc:'Dish 17 poster.png' },
+  // { eyebrow:'Static Ad', title:'Dish 18 Creative', imageSrc:'Dish 18 poster.png' },
+];
+
 function getCardWidth() {
   return window.innerWidth <= 600 ? 180 : window.innerWidth <= 900 ? 200 : 220;
 }
@@ -1337,39 +1413,50 @@ function initCarousel(config) {
 
   /* Render */
   allCards.forEach((c) => {
-    const previewSrc = isGoogleDriveUrl(c.videoSrc) ? toGoogleDriveDirectUrl(c.videoSrc) : c.videoSrc;
+    const hasVideo = typeof c.videoSrc === 'string' && c.videoSrc.trim() !== '';
+    const previewSrc = hasVideo
+      ? (isGoogleDriveUrl(c.videoSrc) ? toGoogleDriveDirectUrl(c.videoSrc) : c.videoSrc)
+      : (c.imageSrc || c.poster || '');
     const card = document.createElement('div');
     card.className = 'car-card';
     card.style.width = CARD_W + 'px';
     card.style.flexBasis = CARD_W + 'px';
-    card.dataset.videoSrc = c.videoSrc;
     card.dataset.title = c.title;
 
+    if (hasVideo) {
+      card.dataset.videoSrc = c.videoSrc;
+    }
+
+    const mediaHtml = hasVideo
+      ? `<video class="car-media" muted loop playsinline preload="none" ${c.poster ? `poster="${c.poster}"` : ''}><source src="${previewSrc}" type="video/mp4"></video>`
+      : `<img class="car-media" src="${previewSrc}" alt="${c.title || 'Static ad creative'}" loading="lazy">`;
+
     card.innerHTML = `
-      <video muted loop playsinline preload="none" ${c.poster ? `poster="${c.poster}"` : ''}>
-        <source src="${previewSrc}" type="video/mp4">
-      </video>
+      ${mediaHtml}
       <div class="car-overlay">
         <div class="car-eyebrow">${c.eyebrow || ''}</div>
         <div class="car-title">${c.title || ''}</div>
       </div>
-      <div class="car-play">
-        <svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </div>`;
+      ${hasVideo ? '<div class="car-play"><svg width="18" height="18" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>' : ''}`;
 
-    const vid = card.querySelector('video');
-    vid.muted = true;
+    /* Apply flexible sizing to carousel 3 (static ads) */
+    if (config.trackId === 'car3-track') {
+      card.classList.add('flexible');
+    }
 
-    /* Desktop hover preview */
-    card.addEventListener('mouseenter', () => { vid.currentTime = 0; vid.play().catch(() => {}); });
-    card.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; vid.load(); });
+    if (hasVideo) {
+      const vid = card.querySelector('video');
+      vid.muted = true;
 
-    /* Tap → play on mobile too */
-    let tapTimer = null;
-    card.addEventListener('click', e => {
-      if (Date.now() < suppressClickUntil) { e.preventDefault(); return; }
-      openVideoModal(c.title, c.videoSrc);
-    });
+      /* Desktop hover preview */
+      card.addEventListener('mouseenter', () => { vid.currentTime = 0; vid.play().catch(() => {}); });
+      card.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; vid.load(); });
+
+      card.addEventListener('click', e => {
+        if (Date.now() < suppressClickUntil) { e.preventDefault(); return; }
+        openVideoModal(c.title, c.videoSrc);
+      });
+    }
 
     track.appendChild(card);
   });
@@ -1494,6 +1581,7 @@ function initCarousel(config) {
 
 initCarousel({ cards: CAROUSEL_CARDS,   trackId:'car-track',  overflowId:'car-overflow',  dotsId:'car-dots',  prevId:'car-prev',  nextId:'car-next'  });
 initCarousel({ cards: CAROUSEL_CARDS_2, trackId:'car2-track', overflowId:'car2-overflow', dotsId:'car2-dots', prevId:'car2-prev', nextId:'car2-next' });
+initCarousel({ cards: CAROUSEL_CARDS_3, trackId:'car3-track', overflowId:'car3-overflow', dotsId:'car3-dots', prevId:'car3-prev', nextId:'car3-next' });
 
 /* =============================================================
    PAGE BEHAVIOURS
