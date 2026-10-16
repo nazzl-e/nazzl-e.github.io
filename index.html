@@ -386,7 +386,8 @@
      CAROUSEL
      ===================================================== */
   #works { padding: 60px 0 12px; }
-  #works-2 { padding: 0 0 100px; }
+  #works-2 { padding: 0 0 12px; }
+  #works-3 { padding: 0 0 100px; }
 
   .carousel-outer { position: relative; z-index: 2; margin-top: 44px; }
   .carousel-fade-left,
@@ -412,8 +413,8 @@
     background: rgba(0,229,255,0.12);
     transform: translateY(-50%) scale(1.08);
   }
-  #car-prev, #car2-prev, #car3-prev { left: 8px; }
-  #car-next, #car2-next, #car3-next { right: 8px; }
+  #car-prev, #car2-prev, #car3-prev, #car4-prev { left: 8px; }
+  #car-next, #car2-next, #car3-next, #car4-next { right: 8px; }
 
   .carousel-overflow {
     overflow: hidden; padding: 14px 0 18px;
@@ -808,8 +809,8 @@
     /* Carousel */
     .car-card { width: 180px; flex: 0 0 180px; }
     .carousel-nav { width: 34px; height: 34px; font-size: 0.85rem; }
-    #car-prev, #car2-prev, #car3-prev { left: 4px; }
-    #car-next, #car2-next, #car3-next { right: 4px; }
+    #car-prev, #car2-prev, #car3-prev, #car4-prev { left: 4px; }
+    #car-next, #car2-next, #car3-next, #car4-next { right: 4px; }
 
     /* Process */
     #process .process-steps { grid-template-columns: 1fr; }
@@ -1101,6 +1102,22 @@
   </div>
 </section>
 
+<section id="works-3">
+  <div class="carousel-outer">
+    <div class="carousel-fade-left"></div>
+    <div class="carousel-fade-right"></div>
+    <button class="carousel-nav" id="car4-prev" aria-label="Previous">&#8592;</button>
+    <button class="carousel-nav" id="car4-next" aria-label="Next">&#8594;</button>
+    <div class="carousel-overflow" id="car4-overflow">
+      <div class="carousel-track" id="car4-track"></div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="carousel-dots" id="car4-dots"></div>
+    <p class="carousel-hint">Drag or use arrows &nbsp;·&nbsp; click/hover to watch</p>
+  </div>
+</section>
+
 <section id="works-static">
   <div class="container">
     <div class="section-tag reveal">Static Ads</div>
@@ -1374,6 +1391,21 @@ const CAROUSEL_CARDS_2 = [
   { eyebrow:'Supplements',     title:'Supplement',videoSrc:'B4c5 - Hook 2.mp4', poster:'' },
 ];
 
+const CAROUSEL_CARDS_TOB = [
+  { eyebrow:'Direct Response', title:'', videoSrc:'TOB/1.mp4', poster:'TOB/Thumbnails/1.jpg' },
+  { eyebrow:'Direct Response', title:'TOB 2', videoSrc:'TOB/2.mp4', poster:'TOB/Thumbnails/2.jpg' },
+  { eyebrow:'Direct Response', title:'TOB 4', videoSrc:'TOB/4.mp4', poster:'TOB/Thumbnails/4.png' },
+  { eyebrow:'Direct Response', title:'TOB 5', videoSrc:'TOB/5.mp4', poster:'TOB/Thumbnails/5.jpg' },
+  { eyebrow:'Direct Response', title:'TOB 11', videoSrc:'TOB/11.mp4', poster:'TOB/Thumbnails/11.jpg' },
+  { eyebrow:'Direct Response', title:'TOB 6', videoSrc:'TOB/22.mp4', poster:'TOB/Thumbnails/22.png' },
+  { eyebrow:'Direct Response', title:'TOB 7', videoSrc:'TOB/33.mp4', poster:'TOB/Thumbnails/33.png' },
+  { eyebrow:'Direct Response', title:'TOB 8', videoSrc:'TOB/44.mp4', poster:'TOB/Thumbnails/44.png' },
+  { eyebrow:'Direct Response', title:'TOB 9', videoSrc:'TOB/55.mp4', poster:'TOB/Thumbnails/55.jpg' },
+  { eyebrow:'Direct Response', title:'TOB 10', videoSrc:'TOB/66.mp4', poster:'TOB/Thumbnails/66.png' },
+  { eyebrow:'Direct Response', title:'TOB 10', videoSrc:'TOB/77.mp4', poster:'TOB/Thumbnails/77.jpg' },
+  { eyebrow:'Direct Response', title:'TOB 10', videoSrc:'TOB/a.mp4', poster:'TOB/Thumbnails/a.jpg' },
+];
+
 const CAROUSEL_CARDS_3 = [
   { eyebrow:'Static Ad', title:'', imageSrc:'Dreamy Bloom/Gemini_Generated_Image_g8jwcog8jwcog8jw.png' },
   { eyebrow:'Static Ad', title:'', imageSrc:'Dreamy Bloom/pink.png' },
@@ -1419,6 +1451,7 @@ function initCarousel(config) {
   let STEP   = CARD_W + GAP;
   let originalWidths = cards.map(() => CARD_W);
   let CYCLE  = cards.length * STEP;
+  let translateX = -CYCLE;
 
   const allCards = [...cards, ...cards, ...cards];
 
@@ -1479,7 +1512,7 @@ function initCarousel(config) {
       : `<img class="car-media" src="${previewSrc}" alt="${c.title || 'Static ad creative'}" loading="lazy">`;
 
     /* Build title element - exclude for carousel 3 */
-    const titleHtml = config.trackId === 'car3-track' ? '' : `<div class="car-title">${c.title || ''}</div>`;
+    const titleHtml = '';
 
     card.innerHTML = `
       ${mediaHtml}
@@ -1545,7 +1578,6 @@ function initCarousel(config) {
   });
   const dots = dotsWrap.querySelectorAll('.car-dot');
 
-  let translateX = -CYCLE;
   let isHovered = false, isDragging = false;
   let dragStartX = 0, dragStartTX = 0, lastDragX = 0;
   let dragVelocity = 0, dragMoved = false;
@@ -1658,7 +1690,8 @@ function initCarousel(config) {
   });
 }
 
-initCarousel({ cards: CAROUSEL_CARDS,   trackId:'car-track',  overflowId:'car-overflow',  dotsId:'car-dots',  prevId:'car-prev',  nextId:'car-next'  });
+initCarousel({ cards: CAROUSEL_CARDS_TOB, trackId:'car-track',  overflowId:'car-overflow',  dotsId:'car-dots',  prevId:'car-prev',  nextId:'car-next'  });
+initCarousel({ cards: CAROUSEL_CARDS,   trackId:'car4-track', overflowId:'car4-overflow', dotsId:'car4-dots', prevId:'car4-prev', nextId:'car4-next' });
 initCarousel({ cards: CAROUSEL_CARDS_2, trackId:'car2-track', overflowId:'car2-overflow', dotsId:'car2-dots', prevId:'car2-prev', nextId:'car2-next' });
 initCarousel({ cards: CAROUSEL_CARDS_3, trackId:'car3-track', overflowId:'car3-overflow', dotsId:'car3-dots', prevId:'car3-prev', nextId:'car3-next' });
 
