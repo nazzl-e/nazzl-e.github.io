@@ -782,7 +782,7 @@
         viewport.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();navigate(event.key==='ArrowRight'?1:-1);}});
         if('IntersectionObserver' in window) new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(!visible) row.querySelectorAll('.media').forEach(media=>media.stopPreview?.());}).observe(row);
         if('ResizeObserver' in window) new ResizeObserver(rebuild).observe(viewport); else window.addEventListener('resize',rebuild);
-        carousels.push({rebuild,tick(dt,now){if(!row.hidden&&visible&&!hover&&!drag&&!paused&&!document.hidden&&!viewer.open&&!motionPreference.matches&&!viewport.contains(document.activeElement)&&now>holdUntil){offset+=dt*45;paint();}}});
+        carousels.push({rebuild,tick(dt,now){if(!row.hidden&&visible&&!hover&&!drag&&!paused&&!document.hidden&&!viewer.open&&!motionPreference.matches&&!viewport.contains(document.activeElement)&&now>holdUntil){offset+=dt*(category==='motion'?-150:150);paint();}}});
         rebuild();
       });
       updateCount('all');
